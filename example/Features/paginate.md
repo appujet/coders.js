@@ -20,7 +20,7 @@ client.on('messageCreate', async (message) => {
 });
 ```
 ## Customization
-you can provide options to paginate function
+you can provide options to paginate
 
 ```js
 const options = {
@@ -35,4 +35,5 @@ const options = {
     }
 }
 ```
+
 
