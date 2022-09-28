@@ -1,4 +1,4 @@
-# A Advance package for discord.js
+# An Advance package for discord.js
 
 ## Features
 
