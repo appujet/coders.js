@@ -3,11 +3,11 @@
 ## Installation
 
 ```bash
-npm i coders-discord
+npm i coders.js
 ```
 or 
 ```bash
-yarn add coders-discord
+yarn add coders.js
 ```
 ## Features
 
