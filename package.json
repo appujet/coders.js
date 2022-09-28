@@ -1,6 +1,6 @@
 {
-  "name": "coders-discord",
-  "version": "1.0.1",
+  "name": "coders.js",
+  "version": "1.0.0",
   "description": "An Advanced Package Manager for discord.js",
   "main": "./src/index.js",
   "files": [
