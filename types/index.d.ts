@@ -7,5 +7,5 @@ declare class Markdown {
 declare type colorTypeString = 'GRAY' | 'RED' | 'GREEN' | 'YELLOW' | 'BLUE' | 'PINK' | 'CYAN' | 'WHITE';
 declare type backgroundColorTypeString = 'DARKBLUE' | 'ORANGE' | 'GRAY' | 'LIGHTGRAY' | 'INDIGO' | 'WHITE';
 declare type formetType = 'BOLD' | 'ITALIC' | 'UNDERLINE' | 'STRIKETHROUGH' | 'BOTH';
-
+declare type MarkdownString = String
 export = Markdown;
