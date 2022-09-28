@@ -8,7 +8,6 @@
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/npm/dt/coders.js.svg?style=for-the-badge" alt="NPM Downloads" /></a>
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/librariesio/dependents/npm/coders.js?style=for-the-badge" alt="NPM Dependents"></a>
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/npm/l/coders.js.svg?style=for-the-badge&color=red" alt="NPM License"></a>
-    <a href="https://discord.gg/invite/ns8CTk9J3e"><img src="https://img.shields.io/discord/942117923001098260?style=for-the-badge&color=blue&label=coders%27s%20Server" alt="Discord"></a>
 </p>
 
 ## **📥 | Installation**
