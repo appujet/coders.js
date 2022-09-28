@@ -1,3 +1,4 @@
 module.exports = {
-    paginate: require('./paginate/index.js'),
+    paginate: require('./features/paginate.js'),
+    Markdown: require('./features/markdown.js').default,
 }
