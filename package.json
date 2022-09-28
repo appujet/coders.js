@@ -19,12 +19,12 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/brblacky/coders-discord.git"
   },
   "bugs": {
-    "url": ""
+    "url": "https://github.com/brblacky/coders-discord/issues"
   },
-  "homepage": "htt",
+  "homepage": "https://github.com/brblacky/coders-discord#readme",
   "keywords": [
     "discord.js",
     "pagination"
