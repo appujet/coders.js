@@ -1,3 +1,3 @@
 module.exports = {
-    paginate: require('./paginate/index.js'),
+    Paginate: require('./paginate/index.js'),
 }

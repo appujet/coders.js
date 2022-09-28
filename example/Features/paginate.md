@@ -4,7 +4,9 @@
 simple example for paginate
 
 ```js
-const { paginate } = require('coders-discord');
+const { Paginate } = require('coders-discord');
+const paginate = new Paginate();
+
 client.on('messageCreate', async (message) => {
     const page = [
         'This is page 1',
@@ -14,8 +16,11 @@ client.on('messageCreate', async (message) => {
     ]
     if (message.content === '!ping') {
         const embed = page.map((x) => new EmbedBuilder().setDescription(x));
+        
        // options is optional
-       await paginate(message, embed, options);
+       paginate.setTime(40000);
+       paginate.setStyle("secondary");
+       await paginate.paginate(message, embed, options);
     }
 });
 ```
