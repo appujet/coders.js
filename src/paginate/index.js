@@ -24,7 +24,6 @@ class Panginate {
      * @returns Panginate
      */
 
-
     setTime(time) {
 
         if (!time || typeof time != "number") {
@@ -79,7 +78,6 @@ class Panginate {
         return this;
     }
 
-
     /**
      * 
      * @param Object of emojis
@@ -94,12 +92,7 @@ class Panginate {
 
         this.paginateOptions.emojis = options;
         return this;
-
-
     }
-
-
-
 
     /**
      * 
@@ -131,27 +124,27 @@ class Panginate {
             // create the buttons
             const first = new ButtonBuilder()
                 .setCustomId('first')
-                .setEmoji(options.emoji.first)
+                .setEmoji(options.emojis.first)
                 .setStyle(options.style);
             if (firstEmbed) first.setDisabled(true);
             const back = new ButtonBuilder()
                 .setCustomId('back')
-                .setEmoji(options.emoji.back)
+                .setEmoji(options.emojis.back)
                 .setStyle(options.style);
             if (firstEmbed) back.setDisabled(true);
             const next = new ButtonBuilder()
                 .setCustomId('next')
-                .setEmoji(options.emoji.next)
+                .setEmoji(options.emojis.next)
                 .setStyle(options.style);
             if (lastEmbed) next.setDisabled(true);
             const last = new ButtonBuilder()
                 .setCustomId('last')
-                .setEmoji(options.emoji.last)
+                .setEmoji(options.emojis.last)
                 .setStyle(options.style);
             if (lastEmbed) last.setDisabled(true);
             const stop = new ButtonBuilder()
                 .setCustomId('stop')
-                .setEmoji(options.emoji.stop)
+                .setEmoji(options.emojis.stop)
                 .setStyle(ButtonStyle.Danger);
             // create the action row
             const row = new ActionRowBuilder()
