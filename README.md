@@ -2,4 +2,4 @@
 
 ## Features
 
--✅ [pagination](https://gp.com)
+- ✅ [pagination](https://gp.com)
