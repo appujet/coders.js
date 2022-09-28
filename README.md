@@ -2,5 +2,5 @@
 
 ## Features
 
-- [pagination](https://gp.com)
+- [paginate](http)
 - more coming soon....

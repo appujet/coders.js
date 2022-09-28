@@ -3,7 +3,7 @@ const { EmbedBuilder, CommandInteraction, ButtonBuilder, ActionRowBuilder, Butto
 const paginateOptions = {
     style: ButtonStyle.Primary,
     timeout: 60000,
-    emoji: {
+    emojis: {
         first: '⏮',
         back: '◀',
         next: '▶',
@@ -11,6 +11,7 @@ const paginateOptions = {
         stop: '⏹',
     },
 }
+
 // function to paginate embeds
 /**
  * 
@@ -39,31 +40,31 @@ const paginate = async (interaction, embeds, options = paginateOptions) => {
         // create the buttons
         const first = new ButtonBuilder()
             .setCustomId('first')
-            .setLabel(options.emoji.first)
+            .setEmoji(options.emoji.first)
             .setStyle(options.style);
         if (firstEmbed) first.setDisabled(true);
         const back = new ButtonBuilder()
             .setCustomId('back')
-            .setLabel(options.emoji.back)
+            .setEmoji(options.emoji.back)
             .setStyle(options.style);
         if (firstEmbed) back.setDisabled(true);
         const next = new ButtonBuilder()
             .setCustomId('next')
-            .setLabel(options.emoji.next)
+            .setEmoji(options.emoji.next)
             .setStyle(options.style);
         if (lastEmbed) next.setDisabled(true);
         const last = new ButtonBuilder()
             .setCustomId('last')
-            .setLabel(options.emoji.last)
+            .setEmoji(options.emoji.last)
             .setStyle(options.style);
         if (lastEmbed) last.setDisabled(true);
         const stop = new ButtonBuilder()
             .setCustomId('stop')
-            .setLabel(options.emoji.stop)
-            .setStyle(options.style);
+            .setEmoji(options.emoji.stop)
+            .setStyle(ButtonStyle.Danger);
         // create the action row
         const row = new ActionRowBuilder()
-            .addComponents(first, back, next, last, stop);
+            .addComponents(first, back, stop, next, last);
         // reutrn the embed and the action row
         return { embeds: [embed], components: [row] };
     };
@@ -75,13 +76,20 @@ const paginate = async (interaction, embeds, options = paginateOptions) => {
     } else {
         msg = await interaction.channel.send({ ...msgOptions });
     };
+    // chak if the interaction is a command interaction
+    let int;
+    if (interaction instanceof CommandInteraction) {
+        int = interaction.user
+    } else {
+        int = interaction.author
+    }
     // create the collector
     const filter = i => i.customId === 'first' || i.customId === 'back' || i.customId === 'next' || i.customId === 'last' || i.customId === 'stop';
     const collector = msg.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: options.timeout });
     // create the collector event
     collector.on('collect', async i => {
         // if the button is clicked by the user who ran the command
-        if (i.user.id === interaction.user.id) {
+        if (i.user.id === int.id) {
             // defer the interaction
             await i.deferUpdate();
             // if the button is the first button
@@ -102,10 +110,10 @@ const paginate = async (interaction, embeds, options = paginateOptions) => {
                 if (page !== 0) {
                     // subtract one from the page
                     page--;
-                   // get the new embed
-                   const newEmbed = generatePage(page);
-                   // edit the message
-                   await i.editReply(newEmbed);
+                    // get the new embed
+                    const newEmbed = generatePage(page);
+                    // edit the message
+                    await i.editReply(newEmbed);
                 };
             };
             // if the button is the next button
@@ -137,7 +145,7 @@ const paginate = async (interaction, embeds, options = paginateOptions) => {
                 // stop the collector
                 collector.stop();
                 // edit the message
-                await i.editReply({ embeds: [currentPage], components: [] });
+                await i.editReply({ embeds:  [embeds[page]], components: [] });
             };
         }
         // if the button is clicked by someone else
@@ -149,7 +157,7 @@ const paginate = async (interaction, embeds, options = paginateOptions) => {
     // create the collector end event
     collector.on('end', async () => {
         // edit the message
-        await msg.edit({ embeds: [currentPage], components: [] });
+        await msg.edit({ embeds: [embeds[page]], components: [] });
     });
 };
 // export the function
