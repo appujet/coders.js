@@ -1,0 +1,11 @@
+node_modules
+.pnpm-lock.yaml
+
+build/Release
+
+node_modules/
+jspm_packages/
+
+.npm
+
+src/index.mjs

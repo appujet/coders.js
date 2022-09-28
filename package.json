@@ -1,0 +1,36 @@
+{
+  "name": "coders-discord",
+  "version": "1.0.0",
+  "description": "A Advanced Package Manager for discord.js",
+  "main": "./src/index.js",
+  "module": "./src/index.mjs",
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "import": "./src/index.mjs",
+      "require": "./src/index.js"
+    }
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "keywords": [
+    "discord.js",
+    "pagination"
+  ],
+  "author": "blacky",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^14.5.0"
+  }
+}
