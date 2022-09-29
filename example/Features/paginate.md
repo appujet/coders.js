@@ -1,10 +1,12 @@
-# paginate 
+# paginate
 
 ## Example
+
 simple example for paginate
 
 ```js
-const { paginate } = require('coders-discord');
+const { Paginate } = require('coders.js');
+const paginate = new Paginate();
 client.on('messageCreate', async (message) => {
     const page = [
         'This is page 1',
@@ -14,26 +16,28 @@ client.on('messageCreate', async (message) => {
     ]
     if (message.content === '!ping') {
         const embed = page.map((x) => new EmbedBuilder().setDescription(x));
-       // options is optional
-       await paginate(message, embed, options);
+      
+       await paginate(message, embed);
     }
 });
 ```
+
 ## Customization
+
 you can provide options to paginate
 
 ```js
-const options = {
-    style: ButtonStyle.Primary,
-    timeout: 60000,
-    emojis: {
-        first: '⏮',
-        back: '◀',
-        next: '▶',
-        last: '⏭',
-        stop: '⏹',
-    }
-}
+const { Paginate } = require('coders.js');
+const paginate = new Paginate();
+ // this is optional
+       paginate.setEmojis({
+             first: '⏮',
+             back: '◀',
+             next: '▶', 
+             last: '⏭',
+             stop: '⏹',
+       })
+        paginate.setTime(60000);
+        paginate.setStyle('secondary');
+        
 ```
-
-
