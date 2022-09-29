@@ -1,5 +1,5 @@
-import { EmbedBuilder, CommandInteraction, Message, ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } from 'discord.js';
-export default class Pagination {
+const { EmbedBuilder, CommandInteraction, Message, ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } = require('discord.js');
+module.exports = class Pagination {
     constructor() {
         this.paginateOptions = {
             style: ButtonStyle.Primary,

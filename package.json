@@ -3,9 +3,7 @@
   "version": "1.0.1",
   "description": "An Advanced Package Manager for discord.js",
   "main": "./src/index.js",
-  "files": [
-    "src"
-  ],
+  "types": "./typings/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node src/index.js"

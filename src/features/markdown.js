@@ -30,7 +30,7 @@ const typeFormat = {
     'BOTH': '1;4;'
 }
 // export the class
-export default class Markdown {
+module.exports = class Markdown {
     constructor() {
         /**
          * @type {string} String before format
