@@ -18,11 +18,16 @@
   "homepage": "https://github.com/brblacky/coders.js#readme",
   "keywords": [
     "discord.js",
-    "pagination"
+    "pagination",
+    "discord",
+    "discord-pagination",
+    "markdown",
+    "captcha"
   ],
   "author": "blacky",
   "license": "MIT",
   "dependencies": {
+    "canvas": "^2.10.1",
     "discord.js": "^14.5.0"
   }
 }
