@@ -25,4 +25,5 @@ npm i coders.js@latest
 ## **🚀 | Features**
 
 - [paginate](https://github.com/brblacky/coders-discord/blob/master/example/Features/paginate.md#paginate)
+- [markdown](https://github.com/brblacky/coders.js/blob/master/example/Features/markdown.md#markdown)
 - more coming soon....
