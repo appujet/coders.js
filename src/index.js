@@ -1,2 +1,5 @@
-export const paginate = require('./features/paginate.js');
-export const Markdown = require('./features/markdown.js').default;
+
+module.exports = {
+    Paginate: require('./features/paginate.js'),
+    Markdown: require('./features/markdown.js').default
+}
