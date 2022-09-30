@@ -4,6 +4,10 @@
   "description": "An Advanced Package Manager for discord.js",
   "main": "./src/index.js",
   "types": "./typings/index.d.ts",
+  "files": [
+    "src/",
+    "typings/"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node src/index.js"

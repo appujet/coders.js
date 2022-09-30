@@ -1,5 +1,5 @@
-const { EmbedBuilder, CommandInteraction, Message, ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } = require('discord.js');
-module.exports = class Pagination {
+const { EmbedBuilder, CommandInteraction, ButtonBuilder, ActionRowBuilder, ButtonStyle, ComponentType } = require('discord.js');
+class Pagination {
     constructor() {
         this.paginateOptions = {
             style: ButtonStyle.Primary,
@@ -11,6 +11,7 @@ module.exports = class Pagination {
                 last: '⏭',
                 stop: '⏹',
             },
+            ButtonCount: 5,
         };
     };
     /**
@@ -57,17 +58,36 @@ module.exports = class Pagination {
         this.paginateOptions.emojis = emojis;
         return this;
     };
+    /**
+     * 
+     * @param Number of buttons
+     * @returns {Promise<void>}
+     */
+    setButtonCount(count) {
+        if (!count || typeof count !== 'number') throw new Error('count must be a number equal to 3 or 5');
+        switch (count) {
+            case 3:
+                this.paginateOptions.ButtonCount = 3;
+                break;
+            case 5:
+                this.paginateOptions.ButtonCount = 5;
+                break;
+            default: throw new Error('count must be a number equal to 3 or 5');
+        }
+        return this;
+    };
 
     // function to paginate embeds
     /**
      * 
-     * @param {CommandInteraction || Message} interaction 
+     * @param {CommandInteraction} interaction 
      * @param {EmbedBuilder} embeds 
      * @param {this.paginateOptions} options 
      * @returns 
      */
-    async paginate(interaction, embeds, options = this.paginateOptions) {
+    async send(interaction, embeds, options = this.paginateOptions) {
         this.validate(interaction, embeds, options);
+
         // if there is only one embed, send it and return
         if (embeds.length < 2) {
             if (interaction instanceof CommandInteraction) {
@@ -75,10 +95,13 @@ module.exports = class Pagination {
                 return;
             } else {
                 await interaction.channel.send({ embeds: embeds });
+                return;
             };
-            // if there are no embeds, return
-            let page = 0;
-            const generatePage = (page) => {
+        };
+        let page = 0;
+        let generatePage;
+        if (this.paginateOptions.ButtonCount === 5) {
+            generatePage = (page) => {
                 let firstEmbed = page === 0;
                 let lastEmbed = page === embeds.length - 1;
                 const embed = embeds[page];
@@ -113,104 +136,129 @@ module.exports = class Pagination {
                 // reutrn the embed and the action row
                 return { embeds: [embed], components: [row] };
             };
-            const msgOptions = generatePage(0);
-            // send the first embed
-            let msg;
-            if (interaction instanceof CommandInteraction) {
-                mgs = interaction.deferred ? await interaction.followUp({ ...msgOptions, fetchReply: true }) : await interaction.reply({ ...msgOptions, fetchReply: true });
-            } else {
-                msg = await interaction.channel.send({ ...msgOptions });
-            };
-            // chak if the interaction is a command interaction
-            let int;
-            if (interaction instanceof CommandInteraction) {
-                int = interaction.user
-            } else {
-                int = interaction.author
+        } else if (this.paginateOptions.ButtonCount === 3) {
+            generatePage = (page) => {
+                let firstEmbed = page === 0;
+                let lastEmbed = page === embeds.length - 1;
+                const embed = embeds[page];
+                // create the buttons
+                const back = new ButtonBuilder()
+                    .setCustomId('back')
+                    .setEmoji(options.emojis.back)
+                    .setStyle(options.style);
+                if (firstEmbed) back.setDisabled(true);
+                const next = new ButtonBuilder()
+                    .setCustomId('next')
+                    .setEmoji(options.emojis.next)
+                    .setStyle(options.style);
+                if (lastEmbed) next.setDisabled(true);
+                const stop = new ButtonBuilder()
+                    .setCustomId('stop')
+                    .setEmoji(options.emojis.stop)
+                    .setStyle(ButtonStyle.Danger);
+                // create the action row
+                const row = new ActionRowBuilder()
+                    .addComponents(back, stop, next);
+                // reutrn the embed and the action row
+                return { embeds: [embed], components: [row] };
             }
-            // create the collector
-            const filter = i => i.customId === 'first' || i.customId === 'back' || i.customId === 'next' || i.customId === 'last' || i.customId === 'stop';
-            const collector = msg.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: options.timeout });
-            // create the collector event
-            collector.on('collect', async i => {
-                // if the button is clicked by the user who ran the command
-                if (i.user.id === int.id) {
-                    // defer the interaction
-                    await i.deferUpdate();
-                    // if the button is the first button
-                    if (i.customId === 'first') {
-                        // if the page is not the first page
-                        if (page !== 0) {
-                            // set the page to the first page
-                            page = 0;
-                            // get the new embed
-                            const newEmbed = generatePage(page);
-                            // edit the message
-                            await i.editReply(newEmbed);
-                        };
-                    };
-                    // if the button is the back button
-                    if (i.customId === 'back') {
-                        // if the page is not the first page
-                        if (page !== 0) {
-                            // subtract one from the page
-                            page--;
-                            // get the new embed
-                            const newEmbed = generatePage(page);
-                            // edit the message
-                            await i.editReply(newEmbed);
-                        };
-                    };
-                    // if the button is the next button
-                    if (i.customId === 'next') {
-                        // if the page is not the last page
-                        if (page !== embeds.length - 1) {
-                            // add one to the page
-                            page++;
-                            // get the new embed
-                            const newEmbed = generatePage(page);
-                            // edit the message
-                            await i.editReply(newEmbed);
-                        };
-                    };
-                    // if the button is the last button
-                    if (i.customId === 'last') {
-                        // if the page is not the last page
-                        if (page !== embeds.length - 1) {
-                            // set the page to the last page
-                            page = embeds.length - 1;
-                            // get the new embed
-                            const newEmbed = generatePage(page);
-                            // edit the message
-                            await i.editReply(newEmbed);
-                        };
-                    };
-                    // if the button is the stop button
-                    if (i.customId === 'stop') {
-                        // stop the collector
-                        collector.stop();
-                        // edit the message
-                        await i.editReply({ embeds: [embeds[page]], components: [] });
-                    };
-                }
-                // if the button is clicked by someone else
-                else {
-                    // reply to the interaction
-                    await i.reply({ content: 'You cannot use this button!', ephemeral: true });
-                };
-            });
-            // create the collector end event
-            collector.on('end', async () => {
-                // edit the message
-                await msg.edit({ embeds: [embeds[page]], components: [] });
-            });
         };
+        const msgOptions = generatePage(0);
+        // send the first embed
+        let msg;
+        if (interaction instanceof CommandInteraction) {
+            mgs = interaction.deferred ? await interaction.followUp({ ...msgOptions, fetchReply: true }) : await interaction.reply({ ...msgOptions, fetchReply: true });
+        } else {
+            msg = await interaction.channel.send({ ...msgOptions });
+        };
+
+        // chak if the interaction is a command interaction
+        let int;
+        if (interaction instanceof CommandInteraction) {
+            int = interaction.user
+        } else {
+            int = interaction.author
+        }
+        // create the collector
+        const filter = i => i.customId === 'first' || i.customId === 'back' || i.customId === 'next' || i.customId === 'last' || i.customId === 'stop';
+        const collector = msg.createMessageComponentCollector({ componentType: ComponentType.Button, filter, time: options.timeout });
+        // create the collector event
+        collector.on('collect', async i => {
+            // if the button is clicked by the user who ran the command
+            if (i.user.id === int.id) {
+                // defer the interaction
+                await i.deferUpdate();
+                // if the button is the first button
+                if (i.customId === 'first') {
+                    // if the page is not the first page
+                    if (page !== 0) {
+                        // set the page to the first page
+                        page = 0;
+                        // get the new embed
+                        const newEmbed = generatePage(page);
+                        // edit the message
+                        await i.editReply(newEmbed);
+                    };
+                };
+                // if the button is the back button
+                if (i.customId === 'back') {
+                    // if the page is not the first page
+                    if (page !== 0) {
+                        // subtract one from the page
+                        page--;
+                        // get the new embed
+                        const newEmbed = generatePage(page);
+                        // edit the message
+                        await i.editReply(newEmbed);
+                    };
+                };
+                // if the button is the next button
+                if (i.customId === 'next') {
+                    // if the page is not the last page
+                    if (page !== embeds.length - 1) {
+                        // add one to the page
+                        page++;
+                        // get the new embed
+                        const newEmbed = generatePage(page);
+                        // edit the message
+                        await i.editReply(newEmbed);
+                    };
+                };
+                // if the button is the last button
+                if (i.customId === 'last') {
+                    // if the page is not the last page
+                    if (page !== embeds.length - 1) {
+                        // set the page to the last page
+                        page = embeds.length - 1;
+                        // get the new embed
+                        const newEmbed = generatePage(page);
+                        // edit the message
+                        await i.editReply(newEmbed);
+                    };
+                };
+                // if the button is the stop button
+                if (i.customId === 'stop') {
+                    // stop the collector
+                    collector.stop();
+                    // edit the message
+                    await i.editReply({ embeds: [embeds[page]], components: [] });
+                };
+                // if the button is clicked by someone else
+            } else {
+                // reply to the interaction
+                await i.reply({ content: 'You cannot use this button!', ephemeral: true });
+            };
+        });
+        // create the collector end event
+        collector.on('end', async () => {
+            // edit the message
+            await msg.edit({ embeds: [embeds[page]], components: [] });
+        });
     };
     /**
      * 
      * @param {CommandInteraction || Message} interaction 
-     * @param {EmbedBuilder} embeds 
-     * @param {this.paginateOptions} options 
+     * @param {EmbedBuilder} embeds  
      * @returns 
      */
     validate(interaction, embeds, options) {
@@ -225,5 +273,8 @@ module.exports = class Pagination {
         if (!options.emojis.next || typeof options.emojis.next !== 'string') throw new Error('options.emojis.next must be a string');
         if (!options.emojis.last || typeof options.emojis.last !== 'string') throw new Error('options.emojis.last must be a string');
         if (!options.emojis.stop || typeof options.emojis.stop !== 'string') throw new Error('options.emojis.stop must be a string');
+        if (!options.ButtonCount || typeof options.ButtonCount !== 'number') throw new Error('options.ButtonCount must be a number');
     }
 };
+
+module.exports = Pagination;

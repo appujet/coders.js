@@ -30,7 +30,7 @@ const typeFormat = {
     'BOTH': '1;4;'
 }
 // export the class
-module.exports = class Markdown {
+ class Markdown {
     constructor() {
         /**
          * @type {string} String before format
@@ -81,3 +81,5 @@ module.exports = class Markdown {
      */
     toCodeblock() {return `\`\`\`${typeCodeblock}\n${require('discord.js').escapeCodeBlock(this.string)}\`\`\``;}
 };
+// export the class
+module.exports = Markdown;

@@ -2,21 +2,19 @@ const Canvas = require('canvas');
 
 Canvas.registerFont(require("path").resolve(__dirname, '../../assets/fonts/Swift.ttf'), { family: 'swift' });
 
-const randomText = () => {
-    Math.random().toString(36).replace(/[^a-z]|[gkqr]+/gi, '').substr(0, 6).toUpperCase(),
-        shuffleArray = (array) => {
-            let i = array.length, temp, randomIndex;
-            while (0 !== i) {
-                randomIndex = Math.floor(Math.random() * i);
-                i -= 1;
-                temp = array[i];
-                array[i] = array[randomIndex];
-                array[randomIndex] = temp;
-            }
-            return array;
+const randomText = () => Math.random().toString(36).replace(/[^a-z]|[gkqr]+/gi, '').substr(0, 6).toUpperCase(),
+    shuffleArray = (array) => {
+        let i = array.length, temp, randomIndex;
+        while (0 !== i) {
+            randomIndex = Math.floor(Math.random() * i);
+            i -= 1;
+            temp = array[i];
+            array[i] = array[randomIndex];
+            array[randomIndex] = temp;
         }
-}
-module.exports = class Captcha {
+        return array;
+    };
+class Captcha {
     /**
      * @param {Number} width Width of captcha
      * @returns {String} Return captcha
@@ -91,7 +89,7 @@ module.exports = class Captcha {
             this.ctx.fillStyle = color;
             this.ctx.arc(
                 Math.round(Math.random() * 400), // X coordinate
-                Math.round(Math.random() * _h), // Y coordinate
+                Math.round(Math.random() * _number), // Y coordinate
                 Math.random() * 2, // Radius
                 0, // Start angle
                 Math.PI * 2 // End angle
@@ -114,3 +112,4 @@ module.exports = class Captcha {
         return this._canvas.toDataURL("image/jpeg");
     }
 }
+module.exports = Captcha;

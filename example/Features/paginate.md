@@ -17,15 +17,13 @@ client.on('messageCreate', async (message) => {
     if (message.content === '!ping') {
         const page = [];
         for (let i = 0; i < pagesNum; i++) {
-            const str = Pages.slice(i * 10, i * 10 + 10).join('');
-            let embed = client.embed()
-                .setColor(client.config.color)
-                .setTitle(`${interaction.guild.name} Server Queue`)
+            const str = Pages.slice(i * 1, i * 1 + 1).join('');
+            let embed = new EmbedBuilder()
                 .setDescription(str)
                 .setFooter({ text: `Page ${i + 1}/${pagesNum}` });
             page.push(embed);
         
-       await paginate(message, page);
+       await paginate.send(message, page);
     }
 });
 ```
@@ -47,5 +45,6 @@ const paginate = new Paginate();
        })
         paginate.setTime(60000);
         paginate.setStyle('secondary');
+        paginate.setButtonCount(5);
         
 ```
