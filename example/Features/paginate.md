@@ -8,16 +8,24 @@ simple example for paginate
 const { Paginate } = require('coders.js');
 const paginate = new Paginate();
 client.on('messageCreate', async (message) => {
-    const page = [
+    const Pages = [
         'This is page 1',
         'This is page 2',
         'This is page 3',
         'This is page 4',
     ]
     if (message.content === '!ping') {
-        const embed = page.map((x) => new EmbedBuilder().setDescription(x));
-      
-       await paginate(message, embed);
+        const page = [];
+        for (let i = 0; i < pagesNum; i++) {
+            const str = Pages.slice(i * 10, i * 10 + 10).join('');
+            let embed = client.embed()
+                .setColor(client.config.color)
+                .setTitle(`${interaction.guild.name} Server Queue`)
+                .setDescription(str)
+                .setFooter({ text: `Page ${i + 1}/${pagesNum}` });
+            page.push(embed);
+        
+       await paginate(message, page);
     }
 });
 ```
