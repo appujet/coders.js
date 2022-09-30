@@ -1,5 +1,6 @@
 <h1  align="center"><strong>coders.js</h1></strong>
-<b><p align="center">An Advance package for discord.js!</p></b>
+<b><p align="center">A simple, lightweight, and easy to use package for discord.js!</p></b>
+<b><p align= "center"><a href="https://codersjs.netlify.app/">Documentation</a> | <a href="https://discord.gg/">Support Server</a></p></b>
 <p align="center">
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://nodei.co/npm/coders.js.png?downloads=true&downloadRank=true&stars=true" alt="NPM All"></a>
 </p>
@@ -24,7 +25,9 @@ npm i coders.js@latest
 
 ## **🚀 | Features**
 
-- [paginate](https://github.com/brblacky/coders-discord/blob/master/example/Features/paginate.md#paginate)
-- [markdown](https://github.com/brblacky/coders.js/blob/master/example/Features/markdown.md#markdown)
-- [captcha](https://github.com/brblacky/coders.js/blob/master/example/Features/captcha.md#captcha)
+- paginate
+- markdown
+- captcha
+- dankmemer
+- utils
 - more coming soon....
