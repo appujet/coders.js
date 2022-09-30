@@ -37,7 +37,7 @@
     "undici": "^5.10.0"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.11",
-    "minami": "^1.2.3"
+    "clean-jsdoc-theme": "^4.1.8",
+    "jsdoc": "^3.6.11"
   }
 }

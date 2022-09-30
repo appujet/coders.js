@@ -29,8 +29,49 @@
     "opts": {
         "destination": "./docs/",
         "encoding": "utf8",
-        "private": true,
+        "readme": "./README.md",
         "recurse": true,
-        "template": "./node_modules/minami"
-    }
+        "verbose": true,
+        "template": "node_modules/clean-jsdoc-theme",
+        "theme_opts": {
+            "default_theme": "dark"
+        }
+    },
+    "markdown": {
+        "hardwrap": false,
+        "idInHeadings": true
+    },
+    "theme_opts": {
+        "base_url": "https://codersjs.netlify.app/",
+        "favicon": "",
+        "homepageTitle": "CodersJS",
+        "title": "codersjs",
+        "menu": [
+            {
+              "title": "Github",
+              "link": "https://github.com/brblacky/coders.js"
+            },
+            {
+              "title": "NPM",
+              "link": "https://www.npmjs.com/package/coders.js"
+            },
+            {
+              "title": "Discord",
+              "link": "https://discord.com/invite/ns8CTk9J3e"
+            }
+        ],       
+        "meta": [
+            {
+              "name": "author",
+              "content": "CodersJS"
+            },
+            {
+              "name": "description",
+              "content": "A simple, lightweight, and easy to use package for discord.js!"
+            }
+          ],
+          "search": true,
+          "footer": "Powered by Coders",
+          "sections": ["Classes", "Modules", "Global"]
+      }
 }

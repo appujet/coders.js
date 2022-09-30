@@ -2,9 +2,6 @@
 <b><p align="center">A simple, lightweight, and easy to use package for discord.js!</p></b>
 <b><p align= "center"><a href="https://codersjs.netlify.app/">Documentation</a> | <a href="https://discord.gg/">Support Server</a></p></b>
 <p align="center">
-    <a href="https://www.npmjs.com/package/coders.js"><img src="https://nodei.co/npm/coders.js.png?downloads=true&downloadRank=true&stars=true" alt="NPM All"></a>
-</p>
-<p align="center">
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/npm/v/coders.js.svg?style=for-the-badge&label=coders" alt="NPM Version" /></a>
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/npm/dt/coders.js.svg?style=for-the-badge" alt="NPM Downloads" /></a>
     <a href="https://www.npmjs.com/package/coders.js"><img src="https://img.shields.io/librariesio/dependents/npm/coders.js?style=for-the-badge" alt="NPM Dependents"></a>
