@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>markdown.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Captcha.html">Captcha</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Dankmemer.html">Dankmemer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Dankmemer.html#abandon">abandon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Dankmemer.html#aborted">aborted</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Markdown.html">Markdown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Markdown.html#format">format</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Markdown.html#toCodeblock">toCodeblock</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Pagination.html">Pagination</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#send">send</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setButtonCount">setButtonCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setEmojis">setEmojis</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setStyle">setStyle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setTime">setTime</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Utils.html">Utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#chunk">chunk</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#ms">ms</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#shuffleArray">shuffleArray</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#StringToMs">StringToMs</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">markdown.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// unicode for the bullet character
+const unicode = '\u001b';
+// the bullet character
+const typeCodeblock = 'ansi';
+// the valid color numbers
+const validColor = {
+    'GREY': 30,
+    'RED': 31,
+    'GREEN': 32,
+    'YELLOW': 33,
+    'BLUE': 34,
+    'PINK': 35,
+    'CYAN': 36,
+    'WHITE': 37,
+};
+// the valid background color numbers
+const validBackgroundColor = {
+    'DARKBLUE': 40,
+    'ORANGE': 41,
+    'GRAY': 42,
+    'LIGHTGRAY': 44,
+    'INDIGO': 45,
+    'WHITE': 47
+}
+// the valid style numbers
+const typeFormat = {
+    'BOLD': '0;1;',
+    'UNDERLINE': '0;4;',
+    'DEFAULT': '0;',
+    'BOTH': '1;4;'
+}
+
+class Markdown {
+    /**
+     * @constructor
+     */
+    constructor() {
+       
+        this.string = '';
+    };
+    /**
+     *
+     * @param {String} text Text to format
+     * @param {String | null} type Format text ?
+     * * `BOLD`: '0;1;',
+     * * `UNDERLINE`: '0;4;',
+     * * `DEFAULT`: '0;',
+     * * `BOTH`: '1;4;',
+     * @param {String | null} color Color of text
+     * * `GRAY`: 30,
+     * * `RED`: 31,
+     * * `GREEN`: 32,
+     * * `YELLOW`: 33,
+     * * `BLUE`: 34,
+     * * `PINK`: 35,
+     * * `CYAN`: 36,
+     * * `WHITE`: 37
+     * @param {String | null} backgroundColor
+     * * `DARKBLUE`: 40,
+     * * `ORANGE`: 41,
+     * * `GRAY`: 42,
+     * * `LIGHTGRAY`: 44,
+     * * `INDIGO`: 45,
+     * * `WHITE`: 47
+     * @param {Boolean} newLine Add new line ?
+     * @returns {String} Return string (not format)
+     * @example
+     * const { Markdown } = require('coders.js');
+     * const markdown = new Markdown();
+     * markdown.format('Hello World', 'BOLD', 'RED', 'DARKBLUE', true);
+     */
+    // eslint-disable-next-line no-unused-vars
+    format(text, type = 'DEFAULT', color = null, backgroundColor = null, newLine = false,) {
+        if (!typeof text === 'string') throw new Error('Text must be string');
+        if (!typeof type === 'string')
+            throw new Error('Format options must be string');
+        let format = `${unicode}[${typeFormat[type] || '0;'}${validColor[color] ? `${validColor[color]};` : '99;'}${validBackgroundColor[backgroundColor] ? `${validBackgroundColor[backgroundColor]};` : '99;'}`;
+        if (format.endsWith(';')) format = format.slice(0, -1);
+        this.string = `${this.string}${format}m${text}${newLine ? '\n' : ''}`;
+        return this;
+    };
+    /**
+     *
+     * @returns {String} Return formatted string
+     * @example
+     * const { Markdown } = require('coders.js');
+     * const markdown = new Markdown();
+     * const text = markdown.format('Hello World', 'BOLD', 'RED', 'DARKBLUE', true).toCodeblock();
+     * message.channel.send(text);
+     */
+    toCodeblock() { return `\`\`\`${typeCodeblock}\n${require('discord.js').escapeCodeBlock(this.string)}\`\`\``; }
+};
+// export the class
+module.exports = Markdown;</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 14:09:49 GMT+0530 (India Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

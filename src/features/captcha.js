@@ -14,8 +14,10 @@ const randomText = () => Math.random().toString(36).replace(/[^a-z]|[gkqr]+/gi, 
         }
         return array;
     };
+
 class Captcha {
     /**
+     * @constructor
      * @param {Number} width Width of captcha
      * @returns {String} Return captcha
      */
@@ -97,17 +99,29 @@ class Captcha {
             this.ctx.fill();
         }
     }
+    /**
+     * @param {Number} value Value to check
+     * @returns {Boolean} Return true if value is correct
+     */
     get value() {
         return this._value;
     }
+    /**
+     * @returns {Canvas.PNGStream} Return stream
+     */
     get PNGStream() {
         return this._canvas.createPNGStream();
     }
-
+    /**
+     * @returns {Canvas.JPEGStream} Return stream
+     */
     get JPEGStream() {
         return this._canvas.createJPEGStream();
     }
-
+    /**
+     * @param {Canvas.toBuffer} buffer Buffer to pipe
+     * @returns {Buffer} Return buffer
+     */
     get dataURL() {
         return this._canvas.toDataURL("image/jpeg");
     }

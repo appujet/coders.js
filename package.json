@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node src/index.js"
+    "build": "node src/index.js",
+    "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose"
   },
   "repository": {
     "type": "git",
@@ -32,6 +33,11 @@
   "license": "MIT",
   "dependencies": {
     "canvas": "^2.10.1",
-    "discord.js": "^14.5.0"
+    "discord.js": "^14.5.0",
+    "undici": "^5.10.0"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.11",
+    "minami": "^1.2.3"
   }
 }

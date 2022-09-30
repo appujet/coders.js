@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>dankmemer.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Captcha.html">Captcha</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Dankmemer.html">Dankmemer</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Dankmemer.html#abandon">abandon</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Dankmemer.html#aborted">aborted</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Markdown.html">Markdown</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Markdown.html#format">format</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Markdown.html#toCodeblock">toCodeblock</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Pagination.html">Pagination</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#send">send</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setButtonCount">setButtonCount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setEmojis">setEmojis</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setStyle">setStyle</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Pagination.html#setTime">setTime</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Utils.html">Utils</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#chunk">chunk</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#ms">ms</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#shuffleArray">shuffleArray</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Utils.html#StringToMs">StringToMs</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">dankmemer.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const { fetch } = require('undici');
+const base = 'https://dankmemer.services/api';
+class Dankmemer {
+    /**
+     * @constructor
+     * @param {String} token API token
+     * {@link https://dankmemer.services/ you can get token here}
+     * @returns {Dankmemer}
+     */
+    constructor(token) {
+        if (!token) throw new Error('No token provided');
+        this.token = token;
+    };
+    async get(endpoint) {
+        const { body } = await fetch(base + endpoint, {
+            headers: {
+                Authorization: this.token
+            }
+        });
+        return await body.json();
+    }
+    /**
+     * 
+     * @param {String} text text to create meme
+     * @returns {Promise&lt;Buffer>}
+     * @example
+     * const { Dankmemer } = require('coders.js');
+     * const dankmemer = new Dankmemer('token');
+     * const text = 'Hello World';
+     * dankmemer.abandon(text).then(buffer => {
+     *    message.channel.send({ files: [buffer] });
+     * });
+     */
+    async abandon(text) {
+        if (!text) throw new Error('No text provided');
+        return await this.get('/abandon?text=' + text);
+    };
+    /**
+     * 
+     * @param {String} avatar user avatar
+     * @returns {Promise&lt;Buffer>}
+     * @example
+     * const { Dankmemer } = require('coders.js');
+     * const dankmemer = new Dankmemer('token');
+     * const avatar = message.author.displayAvatarURL({ format: 'png' });
+     * dankmemer.achievement(avatar).then(buffer => {
+     *   message.channel.send({ files: [buffer] });
+     * });
+     */
+    async aborted(avatar) {
+        if (!avatar) throw new Error('No avatar provided');
+        return await this.get('/aborted?avatar1=' + avatar);
+    }
+
+}
+
+module.exports = Dankmemer;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> on Fri Sep 30 2022 14:09:49 GMT+0530 (India Standard Time) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

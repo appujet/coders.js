@@ -29,13 +29,13 @@ const typeFormat = {
     'DEFAULT': '0;',
     'BOTH': '1;4;'
 }
-// export the class
- class Markdown {
+
+class Markdown {
+    /**
+     * @constructor
+     */
     constructor() {
-        /**
-         * @type {string} String before format
-         * @private
-         */
+       
         this.string = '';
     };
     /**
@@ -64,6 +64,10 @@ const typeFormat = {
      * * `WHITE`: 47
      * @param {Boolean} newLine Add new line ?
      * @returns {String} Return string (not format)
+     * @example
+     * const { Markdown } = require('coders.js');
+     * const markdown = new Markdown();
+     * markdown.format('Hello World', 'BOLD', 'RED', 'DARKBLUE', true);
      */
     // eslint-disable-next-line no-unused-vars
     format(text, type = 'DEFAULT', color = null, backgroundColor = null, newLine = false,) {
@@ -78,8 +82,13 @@ const typeFormat = {
     /**
      *
      * @returns {String} Return formatted string
+     * @example
+     * const { Markdown } = require('coders.js');
+     * const markdown = new Markdown();
+     * const text = markdown.format('Hello World', 'BOLD', 'RED', 'DARKBLUE', true).toCodeblock();
+     * message.channel.send(text);
      */
-    toCodeblock() {return `\`\`\`${typeCodeblock}\n${require('discord.js').escapeCodeBlock(this.string)}\`\`\``;}
+    toCodeblock() { return `\`\`\`${typeCodeblock}\n${require('discord.js').escapeCodeBlock(this.string)}\`\`\``; }
 };
 // export the class
 module.exports = Markdown;
