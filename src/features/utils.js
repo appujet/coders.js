@@ -57,8 +57,7 @@ function StringToMs(string) {
 * const { ms } = require('coders.js');
 * console.log(ms(86400000));
 * // Output: 1d
-*/
-                                                                                                                                                 
+*/                                                                                                                                          
 function ms(ms) {
     if (typeof ms !== 'number') throw new Error('ms must be a number');
     let seconds = Math.floor(ms / 1000);
